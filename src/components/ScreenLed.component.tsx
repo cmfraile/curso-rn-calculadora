@@ -1,17 +1,18 @@
 import { View , Text, StyleSheet, TextStyle } from "react-native";
 
-const Keyboard = () => {
+interface screenLedsProps { input:string , memory:string|undefined }
+const ScreenLed = ({input,memory}:screenLedsProps) => {
 
     return(
         <View style={container}>
-            <Text style={text1}>0.15</Text>
-            <Text style={text2}>250</Text>
+            <Text style={text1}>{memory}</Text>
+            <Text style={text2}>{input}</Text>
         </View>
     )
 
 }
 
-const fontSize:number = 50;
+const fontSize:number = 35;
 const text:TextStyle = {fontWeight:'600',fontSize,margin:20}
 
 const { container , text1 , text2 } = StyleSheet.create({
@@ -20,4 +21,4 @@ const { container , text1 , text2 } = StyleSheet.create({
     text2:{...text}
 })
 
-export default Keyboard
+export default ScreenLed

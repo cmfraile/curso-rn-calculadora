@@ -10,10 +10,10 @@ const { first , second , third } = {first:'#1E3A8A',second:'#A4C639',third:'#747
 
 export const buttonCollection:[string,string,boolean?][] = [
     ['C',first],['+/-',first],['del',first],['/',second],
-    ['7',third],['8',third],['9',third],['X',second],
+    ['7',third],['8',third],['9',third],['*',second],
     ['4',third],['5',third],['6',third],['-',second],
     ['3',third],['2',third],['1',third],['+',second],
-    ['0',third,true],['.',third],['=',third]
+    ['0',third,true],['.',third],['=',second]
 ]
 
 interface buttonProps {text:string,color:string,onPressCallback:() => void,wideCondition?:boolean}
@@ -26,13 +26,13 @@ const ButtonComponent = ({text,color,onPressCallback,wideCondition}:buttonProps)
             (wideCondition) ? wide : nowide ,
             {backgroundColor:color},
             superCenter
-        ]}><Text style={superCenter}>{text}</Text></TouchableOpacity>);
+        ]}><Text style={[superCenter,{fontSize:25,fontWeight:'700'}]}>{text}</Text></TouchableOpacity>);
 
 }
 
 const { button , wide , nowide , superCenter } = StyleSheet.create({
     superCenter:{justifyContent:"center",alignItems:'center'},
-    button:{width:'22%',height:'18%',fontSize:30,fontWeight:'700',borderRadius:100,margin:2},
+    button:{width:'22%',height:'18%',borderRadius:100,margin:2},
     wide:{flexBasis:'50%'},nowide:{}
 })
 

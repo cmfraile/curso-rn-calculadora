@@ -1,13 +1,16 @@
 import { SafeAreaView } from "react-native";
-import Keyboard from "../components/ScreenLed.component";
-import ScreenLed from "../components/Keyboard.component";
+import ScreenLed from "../components/ScreenLed.component";
+import Keyboard from "../components/Keyboard.component";
+import useCalculator from "../hooks/useCalculator.hook";
 
 const Main = () => {
 
+    const { memory , input , callbacks } = useCalculator()
+
     return(
         <SafeAreaView style={{flex:1}}>
-            <Keyboard/>
-            <ScreenLed/>
+            <ScreenLed input={input} memory={memory} />
+            <Keyboard callbacks={callbacks} />
         </SafeAreaView>
     )
 
