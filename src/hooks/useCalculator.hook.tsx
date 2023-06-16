@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-
 const useCalculator = () => {
 
     const [ memory , setMemory ] = useState<string|undefined>(undefined);
@@ -59,7 +58,7 @@ const add = (
     setMemory:React.Dispatch<React.SetStateAction<string | undefined>>,
     sign:'+'|'-'|'*'|'/'
 ):void => { setInput(v1 => {
-    setMemory(v2 => eval(`${v1}${sign}${v2}`));
+    setMemory(v2 => eval(`${v1}${sign}${(v2) ? v2 : '0'}`));
     return '0'
 })}
 
@@ -67,10 +66,10 @@ const operations = (
     setInput:React.Dispatch<React.SetStateAction<string>>,
     setMemory:React.Dispatch<React.SetStateAction<string | undefined>>
 ) => ({
-    '+':add(setInput,setMemory,'+'),
-    '-':add(setInput,setMemory,'-'),
-    '*':add(setInput,setMemory,'*'),
-    '/':add(setInput,setMemory,'/'),
+    '+':() => add(setInput,setMemory,'+'),
+    '-':() => add(setInput,setMemory,'-'),
+    '*':() => add(setInput,setMemory,'*'),
+    '/':() => add(setInput,setMemory,'/'),
 })
 
 

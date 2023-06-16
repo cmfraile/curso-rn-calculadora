@@ -8,9 +8,7 @@ const Keyboard = ({callbacks}:keyboardProps) => {
         <View style={container}>
             {buttonCollection.map( (x,i) => (
                 <ButtonComponent key={i} text={x[0]} color={x[1]} wideCondition={x[2]} 
-                onPressCallback={
-                    (callbacks[x[0]]) ? callbacks[x[0]] : () => console.log(x[0])
-                }/>
+                onPressCallback={callbacks[x[0]]}/>
             ))}
         </View>
     )
