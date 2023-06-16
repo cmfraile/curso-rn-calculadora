@@ -41,47 +41,38 @@ const numbers = (setInput:React.Dispatch<React.SetStateAction<string>>) => {
 
 }
 
-const operationParser = (string:string) => string
-    .split(' ')
-    .map(x => x.trim())
-    .filter(x => x !== '')
-
 const functions = (
     setInput:React.Dispatch<React.SetStateAction<string>>,
     setMemory:React.Dispatch<React.SetStateAction<string | undefined>>
 ) => ({
     'C':() => { setInput(v => '0') ; setMemory(v => undefined) },
     '+/-':() => setInput(v => {
-
-        const parsed = operationParser(v) ;
-        const NaNparsed = parsed.filter(x => !isNaN(parseInt(x))) ;
-        const lastNaNParsed = parseInt(NaNparsed[NaNparsed.length-1]) ;
-
-        if( lastNaNParsed > 0 ){ NaNparsed[NaNparsed.length-1] = `-${lastNaNParsed}` };
-        if( lastNaNParsed < 0 ){ NaNparsed[NaNparsed.length-1] = lastNaNParsed.toString().substring(1) };
-        return NaNparsed.join('');
-
+        if(parseInt(v) > 0){return `-${v}`};
+        if(parseInt(v) < 0){return v.substring(1)};
+        return v;
     }),
     'del':() => { setInput(v => Number.isNaN(parseInt(v.substring(0,v.length-1))) ? '0' : v.substring(0,v.length-1) )}
 });
+
+const add = (
+    setInput:React.Dispatch<React.SetStateAction<string>>,
+    setMemory:React.Dispatch<React.SetStateAction<string | undefined>>,
+    sign:'+'|'-'|'*'|'/'
+):void => { setInput(v1 => {
+    setMemory(v2 => eval(`${v1}${sign}${v2}`));
+    return '0'
+})}
 
 const operations = (
     setInput:React.Dispatch<React.SetStateAction<string>>,
     setMemory:React.Dispatch<React.SetStateAction<string | undefined>>
 ) => ({
-    '+':() => setInput(v => `${v} + `),
-    '-':() => setInput(v => `${v} - `),
-    '*':() => setInput(v => `${v} * `),
-    '/':() => setInput(v => `${v} / `),
-    '=':() => setInput(v1 => {
-        setMemory( v2 => {
-            if(v2 == undefined){return v2}
-            console.log(operationParser(v2).join(''));
-            return '0'
-        });
-        console.log(operationParser(v1).join(''));
-        return '0';
-    })
+    '+':add(setInput,setMemory,'+'),
+    '-':add(setInput,setMemory,'-'),
+    '*':add(setInput,setMemory,'*'),
+    '/':add(setInput,setMemory,'/'),
 })
+
+
 
 export default useCalculator
